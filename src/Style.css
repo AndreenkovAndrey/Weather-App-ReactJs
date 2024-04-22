@@ -126,7 +126,7 @@ table {
 .mainDiv {
   height: 100vh;
   width: 100%;
-  background-color: aquamarine;
+  background-color: antiquewhite;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -161,7 +161,10 @@ p {
   background-color: white;
   display: block;
   margin: 0 auto;
+  list-style: disc inside;
+  
 }
+
 
 .liElementOfInputCityList {
   padding: 4px;
@@ -172,7 +175,9 @@ p {
   padding: 5px;
   display: inline-flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
+  text-align: center;
+  
 }
 
 .liElementOfTrackedCityList{
@@ -181,7 +186,6 @@ p {
   align-items: center;
   padding: 5px 0;
   width: 300px;
-  
 }
 
 
@@ -193,6 +197,14 @@ margin-left: auto;
 }
 
 .currentWeatherElement {
-  font-size: 15px;
+  font-size: 11px;
   text-align: center;
+  
+}
+
+.currentWeatherDivEl {
+  text-align: center;
+  border: 1px;
+  border-radius: 100px;
+  background-color: rgb(255, 215, 180);
 }
