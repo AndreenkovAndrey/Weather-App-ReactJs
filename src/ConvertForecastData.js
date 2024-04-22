@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { WeatherForecastAPI } from "./WeatherForecastAPI";
+// FORECAST_DAYS
 const forecast_days = 3;
 
 export const ConvertForecastData = () => {
+  // Опять некая абстрактная дата, хз что в ней
   const { meteoInfo, getOpenMeteoInfo } = WeatherForecastAPI();
   const [currentWeather, setCurrentWeather] = useState([]);
 
@@ -26,6 +28,7 @@ export const ConvertForecastData = () => {
   const [dailyForecast, setDailyForecast] = useState([]);
   function convertDailyForecast(meteoInfo) {
     const newDailyForecast = [];
+    // Зачем начинать цикл с -1, а потом писать ...[i + 1]?
     for (let i = -1; i < forecast_days - 1; i++) {
       newDailyForecast.push({
         data: meteoInfo.daily.time[i + 1],

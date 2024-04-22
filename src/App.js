@@ -8,19 +8,26 @@ import ConvertForecastData from "./ConvertForecastData";
 import ForecastDataUpload from "./ForecastDataUpload";
 
 export const App = () => {
+  // Что такое userCity? Это выбранный сейчас город? Если да, тогда надо назвать currentCity или selectedCity
   const [userCity, setUserCity] = useState("");
-
+  // Чем отличается selectedCity от userCity?
   const [selectedCity, setSelectedCity] = useState("");
-
+  // Что такое cityList? Если это выпадающий список, тогда нужно менять название. Например cityListForDropdown
   const { cityList, getCityInfo } = SearchCityData();
 
   // openmeteo api try
+  // Что такое meteoInfo? Это текущая погода или прогноз на 3 дня? Если текущая погода, тогда надо currentWeather, если прогноз, тогда forecast
   const { meteoInfo, getOpenMeteoInfo } = WeatherForecastAPI();
+  // Чем отличется currentWeather от meteoInfo?
   const { currentWeather, getCurrentWeather } = ConvertForecastData();
+  // Что такое weatherData? У тебя 3 почти одинаковых названия: meteoInfo, currentWeather, weatherData. Я не могу понять, что они отражают и в чём их разница
   const [weatherData, setWeatherData] = useState([]);
+  // Уже 4 почти одинаковых названия. Ты же сам даже запутаешься в них
   const [meteoData, setMeteoData] = useState([]);
 
+  // Какую инфу по погоде грузим, прогноз или текущую?
   async function loadWeatherData(city) {
+    // Опять размытое имя переменной, что означает meteoInfo?
     const meteoInfo = await getOpenMeteoInfo(city);
     setMeteoData(meteoInfo);
     console.log(meteoData);
@@ -43,6 +50,7 @@ export const App = () => {
     setSelectedCity({ name, latitude, longitude });
   };
 
+  // handleCitySearchInput
   const handleChangeInput = (e) => {
     getCityInfo(userCity);
     setUserCity(e.target.value);
