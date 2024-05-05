@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
+import SearchCityInput from "./SearchCityInput";
 import SearchCityData from "./SearchCityData";
-
 
 export const App = () => {
   const [citySearchQuery, setСitySearchQuery] = useState("");
@@ -9,7 +8,6 @@ export const App = () => {
   const [selectedCity, setSelectedCity] = useState("");
 
   const { cityListForDropdown, getCityInfo } = SearchCityData();
-
 
   const handleClickCity = (city) => {
     const { name, latitude, longitude } = city;
@@ -20,35 +18,32 @@ export const App = () => {
     getCityInfo(citySearchQuery);
     setСitySearchQuery(e.target.value);
   };
+  const handleResetInput = () => {
+    setСitySearchQuery("");
+  };
 
   const handleClickOnInputCityList = (city) => {
     setСitySearchQuery("");
   };
 
+  window.addEventListener("click", function (event) {
+    const target = event.target;
+    if (target !== SearchCityInput) {
+      setСitySearchQuery("");
+    }
+  });
+
   return (
     <div className="mainDiv">
-      <h1>Погода </h1>
+      <h1>Погода</h1>
       <p>Узнайте погоду в вашем городе</p>
-      {/* инпут для поиска города */}
-      <input
-        type="text"
-        placeholder="Введите название города..."
-        value={citySearchQuery}
-        onChange={handleChangeInput}
+      <SearchCityInput
+        citySearchQuery={citySearchQuery}
+        handleChangeInput={handleChangeInput}
+        handleResetInput={handleResetInput}
+        cityListForDropdown={cityListForDropdown}
+        handleClickOnInputCityList={handleClickOnInputCityList}
       />
-      {citySearchQuery && cityListForDropdown.length > 0 && (
-        <ul className="inputCityList">
-          {cityListForDropdown.map((city) => (
-            <li
-              className="liElementOfInputCityList"
-              onClick={(e) => handleClickOnInputCityList(city)}
-              key={city.geonameId}
-            >
-              {city.name}
-            </li>
-          ))}
-        </ul>
-      )}
       <p>Избранные города:</p>
       {/* список отслеживаемых городов */}
     </div>
