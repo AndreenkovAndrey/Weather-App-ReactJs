@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TrackedCityList = () => {
   const getLocalStorageCity = () => {
-    let trackedCityList = localStorage.getItem("trackedCityList");
-    if (trackedCityList) {
-      return JSON.parse(localStorage.getItem("trackedCityList"));
-    } else {
-      return [];
-    }
+    return JSON.parse(localStorage.getItem("trackedCityList")) || [];
   };
 
   const [trackedCity, setTrackedCity] = useState(getLocalStorageCity);
@@ -27,6 +22,10 @@ const TrackedCityList = () => {
       trackedCity.filter((trackedCity) => trackedCity.name !== name)
     );
   };
+
+  useEffect(() => {
+    localStorage.setItem("trackedCityList", JSON.stringify(trackedCity));
+  }, [trackedCity]);
 
   return { trackedCity, addTrackedCity, deleteTrackedCity };
 };

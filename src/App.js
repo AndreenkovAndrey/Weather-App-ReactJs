@@ -1,61 +1,74 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import TrackedCityList from "./TrackedCityList";
+import SearchCityData from "./SearchCityData";
 
-import { OpenMeteo } from "./OpenMeteo";
+import getCurrentWeatherAndForecastResponse from "./WeatherForecastAPI";
+import ConvertForecastData from "./ConvertForecastData";
+import ForecastDataUpload from "./ForecastDataUpload";
 
 export const App = () => {
-  const [srcCity, setSrcCity] = useState("");
-  const [cityList, setCityList] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
-  const baseGeoNameUrl = "http://api.geonames.org";
-  const userApi = "renattagaev";
-  const numberOfRowsFromGeoName = "3";
+  const [citySearchQuery, setСitySearchQuery] = useState("");
 
-  async function getCityInfo(query) {
-    const endPoint = `${baseGeoNameUrl}/searchJSON?q=${query}&maxRows=${numberOfRowsFromGeoName}&lang=ru&username=${userApi}`;
-    try {
-      const response = await axios.get(endPoint);
-      if (response.status === 200 && response.data) {
-        setCityList(response.data.geonames);
-      }
-    } catch (error) {
-      console.error(error);
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const { cityListForDropdown, getCityInfo } = SearchCityData();
+
+  // openmeteo api try
+
+  const { currentWeather, getCurrentWeather } = ConvertForecastData();
+
+  async function loadWeatherData(city) {
+    const data = await getCurrentWeatherAndForecastResponse(city);
+    console.log(data);
+
+    if (data) {
+      getCurrentWeather(data);
+      // console.log(currentWeather);
+    } else {
+      console.log("Error here");
     }
   }
 
-  const { trackedCity, addTrackedCity, deleteTrackedCity } = TrackedCityList();
+  // useEffect(() => {
+  //   if (selectedCity) loadWeatherData(selectedCity);
+  // }, [selectedCity]);
 
-  useEffect(() => {
-    localStorage.setItem("trackedCityList", JSON.stringify(trackedCity));
-  }, [trackedCity]);
+  const { trackedCity, addTrackedCity, deleteTrackedCity } = TrackedCityList();
 
   const handleClickCity = (city) => {
     const { name, latitude, longitude } = city;
     setSelectedCity({ name, latitude, longitude });
+    loadWeatherData(selectedCity);
+  };
+
+  const handleChangeInput = (e) => {
+    getCityInfo(citySearchQuery);
+    setСitySearchQuery(e.target.value);
+    // getCityInfo(e.target.value);
+  };
+
+  const handleClickOnInputCityList = (city) => {
+    addTrackedCity(city);
+    setСitySearchQuery("");
   };
 
   return (
     <div className="mainDiv">
-      <h1>Погода сегодня</h1>
+      <h1>Погода </h1>
       <p>Узнайте погоду в вашем городе</p>
       {/* инпут для поиска города */}
       <input
         type="text"
-        placeholder="Введите название города"
-        value={srcCity}
-        onChange={(e) => {
-          getCityInfo(srcCity);
-          setSrcCity(e.target.value);
-          getCityInfo(e.target.value);
-        }}
+        placeholder="Введите название города..."
+        value={citySearchQuery}
+        onChange={handleChangeInput}
       />
-      {srcCity && cityList.length > 0 && (
+      {citySearchQuery && cityListForDropdown.length > 0 && (
         <ul className="inputCityList">
-          {cityList.map((city) => (
+          {cityListForDropdown.map((city) => (
             <li
               className="liElementOfInputCityList"
-              onClick={(e) => addTrackedCity(city)}
+              onClick={(e) => handleClickOnInputCityList(city)}
               key={city.geonameId}
             >
               {city.name}
@@ -75,13 +88,12 @@ export const App = () => {
             {city.name}
             <input
               type="button"
-              value="Удалить"
+              value="Х"
               className="deletedButtonOfTrackedCityList"
               onClick={(e) => deleteTrackedCity(city.name)}
             />
           </li>
         ))}
-        <OpenMeteo city={selectedCity} />
       </ul>
     </div>
   );
