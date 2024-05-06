@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import SearchCityData from "./SearchCityData";
 
-const SearchCityInput = ({
-  citySearchQuery,
-  handleChangeInput,
-  handleResetInput,
-  cityListForDropdown,
-  handleClickOnInputCityList,
-}) => {
+const SearchCityInput = () => {
+  const [citySearchQuery, setСitySearchQuery] = useState("");
+
+  const { cityListForDropdown, getCityInfo } = SearchCityData();
+
+  const handleChangeInput = (e) => {
+    getCityInfo(citySearchQuery);
+    setСitySearchQuery(e.target.value);
+  };
+  const handleResetInput = () => {
+    setСitySearchQuery("");
+  };
+
+  const handleClickOnInputCityList = (city) => {
+    setСitySearchQuery("");
+  };
+
+  window.addEventListener("click", function (event) {
+    const target = event.target;
+    if (target !== SearchCityInput) {
+      setСitySearchQuery("");
+    }
+  });
   return (
     <>
       <div className="inputContainer">
@@ -16,10 +33,11 @@ const SearchCityInput = ({
           value={citySearchQuery}
           onChange={handleChangeInput}
         />
-
-        <button className="inputResetButton" onClick={handleResetInput}>
-          Сбросить
-        </button>
+        {citySearchQuery && (
+          <button className="inputResetButton" onClick={handleResetInput}>
+            Сбросить
+          </button>
+        )}
       </div>
       {citySearchQuery && cityListForDropdown.length > 0 && (
         <ul className="inputCityList">
