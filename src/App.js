@@ -7,9 +7,9 @@ export const App = () => {
   const { trackedCities, addTrackedCity, deleteTrackedCity } =
     TrackedCitiesList();
 
-  // const handleClickCity = (city) => {
-  //   const { name, latitude, longitude } = city;
-  //   setSelectedCity({ name, latitude, longitude });
+  const handleClickCity = (city) => {
+     const { name, latitude, longitude } = city;
+    setSelectedCity({ name, latitude, longitude });
   };
   return (
     <div className="mainDiv">
