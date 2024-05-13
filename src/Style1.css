@@ -189,16 +189,16 @@ margin-left: 10px;
     list-style: disc inside;
   }
 
-  .liElementOfInputCityList {
-    vertical-align: middle;
-    background-color:  f2f2f2;
-    padding: 0px 0px 10px 0px;
-    cursor: pointer;
-    border-radius: 0px 0px 8px 8px;
+.liElementOfInputCityList {
+  vertical-align: middle;
+  background-color:  f2f2f2;
+  cursor: pointer;
+  padding: 5px 0px 5px 5px;
+  
   }
 
   .liElementOfInputCityList:hover {
-    background-color:  antiquewhite;
+    background-color:  rgba(29, 127, 183, 0.529);
   }
 
   .trackedCityList {
