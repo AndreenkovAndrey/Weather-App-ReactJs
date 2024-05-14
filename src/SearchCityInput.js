@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import getCityInfo from "./SearchCityData";
 
 const SearchCityInput = (props) => {
-  const [citySearchQuery, setСitySearchQuery] = useState("");
+  const [citySearchQuery, setCitySearchQuery] = useState("");
 
   const [cityListForDropdown, setCityListForDropdown] = useState([]);
   const getCityListDropdown = async (citySearchQuery) => {
@@ -10,22 +10,22 @@ const SearchCityInput = (props) => {
   };
 
   const handleChangeInput = async (e) => {
-    setСitySearchQuery(e.target.value);
+    setCitySearchQuery(e.target.value);
     await getCityListDropdown(citySearchQuery);
   };
   const handleResetInput = () => {
-    setСitySearchQuery("");
+    setCitySearchQuery("");
   };
 
   const handleClickOnInputCityList = (city) => {
     props.handleAddTrackedCityClick(city);
-    setСitySearchQuery("");
+    setCitySearchQuery("");
   };
 
   window.addEventListener("click", function (event) {
     const target = event.target;
     if (target !== SearchCityInput) {
-      setСitySearchQuery("");
+      setCitySearchQuery("");
     }
   });
 

@@ -7,6 +7,10 @@ const TrackedCitiesList = () => {
 
   const [trackedCities, setTrackedCities] = useState(getLocalStorageCitiesList);
 
+  // const saveCityInLocalStorage = (city) => {
+  //   localStorage.setItem("trackedCitiesList", JSON.stringify(city));
+  // };
+
   const addTrackedCity = (city) => {
     const newTrackedCity = {
       name: city.name,
@@ -15,6 +19,7 @@ const TrackedCitiesList = () => {
       latitude: city.lat,
     };
     setTrackedCities([...trackedCities, newTrackedCity]);
+    // saveCityInLocalStorage(trackedCities);
   };
 
   const deleteTrackedCity = (name) => {
