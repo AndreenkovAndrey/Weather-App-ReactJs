@@ -1,21 +1,41 @@
 import React, { useState } from "react";
+import CityCard from "./CityCard";
 
 const RenderTrackedCitiesList = (props) => {
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [isCityCardOpen, setIsCityCardOpen] = useState(false);
 
   const handleClickCity = (city) => {
     const { name, latitude, longitude } = city;
     setSelectedCity({ name, latitude, longitude });
+    setIsCityCardOpen(true);
+  };
+
+  const handleCloseCityCard = () => {
+    setSelectedCity(null);
+    setIsCityCardOpen(false);
+  };
+
+  const handleClickOpenCityCard = () => {
+    if (selectedCity && isCityCardOpen) {
+      return (
+        <CityCard
+          cityToOpen={selectedCity}
+          handleCloseCityCard={handleCloseCityCard}
+        />
+      );
+    }
   };
 
   return (
     <div className="trackedCityListDiv">
+      {handleClickOpenCityCard()}
       <ul className="trackedCitiesList">
         {props.trackedCities.map((city) => (
           <li
             className="liElementOfTrackedCityList"
             key={city.name}
-            onClick={(e) => handleClickCity(city)}
+            onMouseDown={(e) => handleClickCity(city)}
           >
             {city.name}
             <input
