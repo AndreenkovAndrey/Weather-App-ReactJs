@@ -1,5 +1,4 @@
 import React from "react";
-
 const CityCard = (props) => {
   return (
     <div className="cityCard">

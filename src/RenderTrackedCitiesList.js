@@ -35,7 +35,7 @@ const RenderTrackedCitiesList = (props) => {
           <li
             className="liElementOfTrackedCityList"
             key={city.name}
-            onMouseDown={(e) => handleClickCity(city)}
+            onClick={(e) => handleClickCity(city)}
           >
             {city.name}
             <input
