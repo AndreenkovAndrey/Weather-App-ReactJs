@@ -1,16 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import getCurrentWeatherAndForecastResponse from "./WeatherForecastAPI";
 
-const CityCard = (props) => {
-  const city = props.cityToOpen;
+const CityCard = ({ cityToOpen, handleCloseCityCard }) => {
+  const [weather, setWeather] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      const weather = await getCurrentWeatherAndForecastResponse(cityToOpen);
+      setWeather(weather);
+      setIsLoading(false);
+    }
+    fetchData();
+  }, [cityToOpen]);
 
   return (
     <div className="cityCard">
-      <h2>{props.cityToOpen.name}</h2>
+      <h2>{cityToOpen.name}</h2>
+      {isLoading && <span className="loader"></span>}
       <input
         type="button"
         value="Свернуть"
         className="returnButtonOfCityCard"
-        onClick={props.handleCloseCityCard}
+        onClick={handleCloseCityCard}
       />
     </div>
   );

@@ -3,28 +3,18 @@ import CityCard from "./CityCard";
 
 const RenderTrackedCitiesList = (props) => {
   const [selectedCity, setSelectedCity] = useState(null);
-  const [isCityCardOpen, setIsCityCardOpen] = useState(false);
 
   const handleClickCity = (city) => {
     const { name, latitude, longitude } = city;
     setSelectedCity({ name, latitude, longitude });
-    setIsCityCardOpen(true);
   };
 
   const handleCloseCityCard = () => {
     setSelectedCity(null);
-    setIsCityCardOpen(false);
   };
 
-  return (
-    <div className="trackedCityListDiv">
-      {isCityCardOpen && selectedCity && (
-        <CityCard
-          cityToOpen={selectedCity}
-          handleCloseCityCard={handleCloseCityCard}
-        />
-      )}
-
+  const renderTrackedCitiesList = () => {
+    return (
       <ul className="trackedCitiesList">
         {props.trackedCities.map((city) => (
           <li
@@ -37,11 +27,26 @@ const RenderTrackedCitiesList = (props) => {
               type="button"
               value="Х"
               className="deletedButtonOfTrackedCitiesList"
-              onClick={(e) => props.handleDeleteTrackedCityClick(city.name)}
+              onClick={(e) => {
+                e.stopPropagation();
+                props.handleDeleteTrackedCityClick(city.name);
+              }}
             />
           </li>
         ))}
       </ul>
+    );
+  };
+
+  return (
+    <div className="trackedCityListDiv">
+      {selectedCity && (
+        <CityCard
+          cityToOpen={selectedCity}
+          handleCloseCityCard={handleCloseCityCard}
+        />
+      )}
+      {!selectedCity && renderTrackedCitiesList()}
     </div>
   );
 };

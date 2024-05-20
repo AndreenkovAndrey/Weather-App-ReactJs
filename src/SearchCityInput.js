@@ -44,6 +44,7 @@ const SearchCityInput = (props) => {
     <>
       <div className="inputContainer">
         <input
+          className="searchCityInput"
           type="text"
           placeholder="Введите название города..."
           value={citySearchQuery}

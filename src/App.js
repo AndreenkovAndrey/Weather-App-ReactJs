@@ -14,7 +14,6 @@ export const App = () => {
       <p>Узнайте погоду в вашем городе</p>
       <SearchCityInput handleAddTrackedCityClick={addTrackedCity} />
       <p>Избранные города:</p>
-      {/* список отслеживаемых городов */}
       <RenderTrackedCitiesList
         trackedCities={trackedCities}
         handleDeleteTrackedCityClick={deleteTrackedCity}
