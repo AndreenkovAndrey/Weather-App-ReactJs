@@ -16,20 +16,15 @@ const RenderTrackedCitiesList = (props) => {
     setIsCityCardOpen(false);
   };
 
-  const handleClickOpenCityCard = () => {
-    if (selectedCity && isCityCardOpen) {
-      return (
+  return (
+    <div className="trackedCityListDiv">
+      {isCityCardOpen && selectedCity && (
         <CityCard
           cityToOpen={selectedCity}
           handleCloseCityCard={handleCloseCityCard}
         />
-      );
-    }
-  };
+      )}
 
-  return (
-    <div className="trackedCityListDiv">
-      {handleClickOpenCityCard()}
       <ul className="trackedCitiesList">
         {props.trackedCities.map((city) => (
           <li

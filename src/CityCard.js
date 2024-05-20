@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 const CityCard = (props) => {
+  const city = props.cityToOpen;
+
   return (
     <div className="cityCard">
       <h2>{props.cityToOpen.name}</h2>
