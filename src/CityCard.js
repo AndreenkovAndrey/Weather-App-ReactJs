@@ -6,15 +6,18 @@ const CityCard = ({ cityToOpen, handleCloseCityCard }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Зачем хранить эту функцию внутри хука?
     async function fetchData() {
       setIsLoading(true);
       const response = await getCurrentWeatherAndForecastResponse(cityToOpen);
       setWeather(response);
       setIsLoading(false);
     }
+    // Функция асинхронная, нужен await
     fetchData();
   }, []);
 
+  // Нет заглушки на случай отвалившегося интернета
   const renderConvertedCurrentWeather = (weather) => {
     if (weather !== null) {
       return (

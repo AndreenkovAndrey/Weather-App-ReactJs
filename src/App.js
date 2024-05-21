@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// Неиспользуемый useState
 import SearchCityInput from "./SearchCityInput";
 import TrackedCitiesList from "./TrackedCitiesList";
 import RenderTrackedCitiesList from "./RenderTrackedCitiesList";

@@ -4,8 +4,9 @@ import CityCard from "./CityCard";
 const RenderTrackedCitiesList = (props) => {
   const [selectedCity, setSelectedCity] = useState(null);
 
-  const handleClickCity = (city) => {
-    const { name, latitude, longitude } = city;
+  const handleClickCity = ({ name, latitude, longitude }) => {
+    // Можно сделать так
+    // const { name, latitude, longitude } = city;
     setSelectedCity({ name, latitude, longitude });
   };
 
