@@ -8,17 +8,41 @@ const CityCard = ({ cityToOpen, handleCloseCityCard }) => {
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
-      const weather = await getCurrentWeatherAndForecastResponse(cityToOpen);
-      setWeather(weather);
+      const response = await getCurrentWeatherAndForecastResponse(cityToOpen);
+      setWeather(response);
       setIsLoading(false);
     }
     fetchData();
-  }, [cityToOpen]);
+  }, []);
+
+  const renderConvertedCurrentWeather = (weather) => {
+    if (weather !== null) {
+      return (
+        <div className="currentWeatherDiv">
+          <p className="currentWeatherDivElement">
+            Температура: {weather.data.current.temperature_2m}
+            {weather.data.current_units.temperature_2m}
+          </p>
+          <p className="currentWeatherDivElement">
+            Скорость ветра: {weather.data.current.wind_speed_10m}
+            {weather.data.current_units.wind_speed_10m}
+          </p>
+          <p className="currentWeatherDivElement">
+            Влажность: {weather.data.current.relative_humidity_2m}
+            {weather.data.current_units.relative_humidity_2m}
+          </p>
+        </div>
+      );
+    }
+  };
 
   return (
     <div className="cityCard">
       <h2>{cityToOpen.name}</h2>
       {isLoading && <span className="loader"></span>}
+      <div className="currentWeather">
+        {renderConvertedCurrentWeather(weather)}
+      </div>
       <input
         type="button"
         value="Свернуть"

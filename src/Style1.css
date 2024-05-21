@@ -267,6 +267,7 @@ margin-left: 10px;
   .cityCard h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
+    margin-top: 40px;
     text-align: center;
   }
 
@@ -275,7 +276,7 @@ margin-left: 10px;
     width: 70px;
     height: 21px;
     padding: 0;
-    bottom: 0px;
+    bottom: 20px;
     left: 115px;
     text-align: center;
   }
@@ -319,4 +320,14 @@ margin-left: 10px;
       top: -200%;
       transform: translateX(-50%) scale(1.5);
     }
+  }
+
+  .currentWeatherDiv {
+    text-align: center;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    bottom: 20px;
   }
