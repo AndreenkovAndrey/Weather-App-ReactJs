@@ -5,21 +5,22 @@ const CityCard = ({ cityToOpen, handleCloseCityCard }) => {
   const [weather, setWeather] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    // Зачем хранить эту функцию внутри хука?
-    async function fetchData() {
-      setIsLoading(true);
+  async function fetchData() {
+    setIsLoading(true);
+    try {
       const response = await getCurrentWeatherAndForecastResponse(cityToOpen);
       setWeather(response);
-      setIsLoading(false);
+    } catch (error) {
+      console.error("Ошибка при загрузке данных о погоде:", error);
     }
-    // Функция асинхронная, нужен await
+    setIsLoading(false);
+  }
+  useEffect(() => {
     fetchData();
   }, []);
 
-  // Нет заглушки на случай отвалившегося интернета
   const renderConvertedCurrentWeather = (weather) => {
-    if (weather !== null) {
+    if (weather !== undefined && weather !== null) {
       return (
         <div className="currentWeatherDiv">
           <p className="currentWeatherDivElement">
@@ -33,6 +34,15 @@ const CityCard = ({ cityToOpen, handleCloseCityCard }) => {
           <p className="currentWeatherDivElement">
             Влажность: {weather.data.current.relative_humidity_2m}
             {weather.data.current_units.relative_humidity_2m}
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="currentWeatherErrorDiv">
+          <p className="currentWeatherErrorDivChild">Ошибка</p>
+          <p className="currentWeatherErrorDivChild">
+            Данные о погоде не загружены.
           </p>
         </div>
       );
