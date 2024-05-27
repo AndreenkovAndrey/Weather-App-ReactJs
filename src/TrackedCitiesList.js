@@ -8,13 +8,19 @@ const TrackedCitiesList = () => {
   const [trackedCities, setTrackedCities] = useState(getLocalStorageCitiesList);
 
   const addTrackedCity = (city) => {
-    const newTrackedCity = {
-      name: city.name,
-      id: city.geonameId,
-      longitude: city.lng,
-      latitude: city.lat,
-    };
-    setTrackedCities([...trackedCities, newTrackedCity]);
+    if (
+      !trackedCities.find((trackedCity) => trackedCity.id === city.geonameId)
+    ) {
+      const newTrackedCity = {
+        name: city.name,
+        id: city.geonameId,
+        longitude: city.lng,
+        latitude: city.lat,
+      };
+      setTrackedCities([...trackedCities, newTrackedCity]);
+    } else {
+      alert("Этот город уже был добавлен");
+    }
   };
 
   const deleteTrackedCity = (name) => {

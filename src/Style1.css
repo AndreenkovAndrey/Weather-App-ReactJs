@@ -99,6 +99,7 @@ section {
 }
 body {
   line-height: 1;
+  margin: 10px 0px 0px 0px;
 }
 ol,
 ul {
@@ -120,22 +121,23 @@ table {
   border-spacing: 0;
 }
 
+
+
 #root {
     font-family: Arial, sans-serif;
     color: #333;
-    padding: 20px;
     display: flex;
     justify-content: center;
 }
 
 .mainDiv {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    flex-direction: column;
-    height: 100vh;
-    background: linear-gradient(to bottom, #ffffff, #83cfff);
-    width: 430px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(to bottom, #ffffff, #83cfff);
+  padding: 0;
+  box-sizing: border-box; 
 }
 
 h1 {
@@ -185,7 +187,7 @@ h1 {
   background: linear-gradient(to bottom, #fff, #83cfff);
   color: #333; 
   position: relative;
-  left: 45px; 
+  right: 35px; 
   height: 21px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s; 
@@ -198,12 +200,12 @@ h1 {
 
 .inputCityList {
     min-height: 70px;
-    width: 300px;
+    width: 316px;
     border-radius: 8px;
     background-color:  #f2f2f2;
     display: block;
     position: relative;
-    right: 10;
+    right: 1px;
     list-style: disc inside;
   }
 
